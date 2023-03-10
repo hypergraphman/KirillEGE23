@@ -6,26 +6,20 @@ def f3(n):
     return k
 
 
-with open('27-A.txt') as f:
+with open('27-B.txt') as f:
     n = int(f.readline())
     temp = list()
     for i in range(18):
         temp.append(int(f.readline()))
-    b = [0] * 8
+    b = [[0] * 8 for _ in range(8)]
     k = 0
     for _ in range(n - 18):
         x = temp.pop(0)
         y = int(f.readline())
-        b[f3(x)] += 1
-        k += sum(b[-f3(y) - 1:])
-        # k += b[(8 - y % 8) % 8]
+        t = f3(x)
+        if t > 7:
+            t = 7
+        b[x % 8][t] += 1
+        k += sum(b[(8 - y % 8) % 8][-f3(y) - 1:])
         temp.append(y)
-    # for _ in range(n - 18):
-    #     x = temp.pop(0)
-    #     y = int(f.readline())
-    #     b[x % 8] += 1
-    #     k += b[(8 - y % 8) % 8]
-    #     temp.append(y)
 print(k)
-
-# 2589
